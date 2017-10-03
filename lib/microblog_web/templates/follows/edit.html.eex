@@ -1,0 +1,5 @@
+<h2>Edit Follows</h2>
+
+<%= render "form.html", Map.put(assigns, :action, follows_path(@conn, :update, @follows)) %>
+
+<span><%= link "Back", to: follows_path(@conn, :index) %></span>

@@ -1,0 +1,72 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Messages</title>
+
+    <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="#">Micro-blog</a>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+            
+                <%= link "Messages", to: message_path(@conn, :index), class: "nav-link" %>
+
+            </li>
+            <li class="nav-item">
+                <%= link "Users", to: user_path(@conn, :index), class: "nav-link" %>
+            </li>
+
+             <%= if @current_user do %>
+                <span class="text-light">
+                <%= @current_user.email %> |
+                <%= link("logout", to: session_path(@conn, :logout), method: :delete)%>
+                </span>
+            <% else %>
+                <%= form_for @conn, session_path(@conn, :login), 
+                [as: "user", class: "form-inline w-75"], fn f -> %>
+                <input type="text" placeholder="email" 
+                             class="form-control" name="email">
+                <input type="submit" value="Log in" class="btn btn-primary">
+             <% end %>
+            <% end %>
+
+        </ul>
+    </div>
+</nav>
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+
+        <%= if get_flash(@conn, :info) do %>
+            <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
+        <% end %>
+        <%= if get_flash(@conn, :error) do %>
+            <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+        <% end %>
+        
+        <%= render @view_module, @view_template, assigns %>
+        
+        </div>
+    </div>
+
+
+
+</div>
+
+
+
+
+
+
+<script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+
+</body>
+</html>

@@ -1,0 +1,18 @@
+<h2>Show Follows</h2>
+
+<ul>
+
+  <li>
+    <strong>User:</strong>
+    <%= @follows.user %>
+  </li>
+
+  <li>
+    <strong>Followed user:</strong>
+    <%= @follows.followed_user %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: follows_path(@conn, :edit, @follows) %></span>
+<span><%= link "Back", to: follows_path(@conn, :index) %></span>
