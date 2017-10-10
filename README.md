@@ -1,20 +1,32 @@
-# Microblog
+Microblog
 
-To start your Phoenix server:
+https://github.com/edufarest/microblog
+http://microblog.eduardofares.com/messages
 
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.create && mix ecto.migrate`
-  * Install Node.js dependencies with `cd assets && npm install`
-  * Start Phoenix endpoint with `mix phx.server`
+To Login:
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+Click on "Users" in the navbar and "New User". Then type the email address in the textfield and click submit.
+The user index will then have "show" link for all users, and an edit/delete button for the current user
 
-Ready to run in production? Please [check our deployment guides](http://www.phoenixframework.org/docs/deployment).
+After creating an account, you can type the email in the textfield in the navbar and press "Log in"
 
-## Learn more
+To Logout:
 
-  * Official website: http://www.phoenixframework.org/
-  * Guides: http://phoenixframework.org/docs/overview
-  * Docs: https://hexdocs.pm/phoenix
-  * Mailing list: http://groups.google.com/group/phoenix-talk
-  * Source: https://github.com/phoenixframework/phoenix
+Click on "logout" next to the username in the navbar.
+
+To Post:
+
+Log in first.
+Go to "Messages" and "New Message". Then type the message contents and then "Submit".
+
+To Follow an user:
+
+Log in first.
+Go to "Users" and click "Show" for the user that you want to follow. In the show page, click on "Follow"
+
+After following someone, their messages will appear in the "Messages" page.
+
+
+To Like:
+
+In the message show page, click on like. After clicking like, a small card will appear saying that you liked the post. After liking a post, the user will see the "You liked this post!" message.
