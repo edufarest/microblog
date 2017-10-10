@@ -11,3 +11,42 @@
 
 <span><%= link "Edit", to: message_path(@conn, :edit, @message) %></span>
 <span><%= link "Back", to: message_path(@conn, :index) %></span>
+
+<!-- Based on nu_mart feedback code -->
+
+<div id="message-likes"
+    data-path="<%= like_path(@conn, :index) %>"
+    data-message_id="<%= @message.id %>">
+  &nbsp;
+</div>
+
+<script id="likes-template" type="text/x-handlebars-template">
+    <div class="m-2">
+        <h2>Likes: </h2>
+
+        {{#each data}}
+        <div class="card">
+            <div class="card-body">
+                <h6 class="">{{user_email}} likes this.</h6>
+            </div>
+        </div>
+        {{else}}
+        <p>No likes yet</p>
+        {{/each}}
+    
+    </div>
+</script>
+
+<%= if @current_user do %>
+    <%= if Enum.empty?(Microblog.Blog.user_liked(@message.id, @current_user.id)) do %>
+        <div class="m-2">
+            <button id="like-add-button" class="btn btn-primary"
+            data-user-id="<%= @current_user.id %>">Like!</button>
+        </div>
+    
+    <% else %>
+
+        <h6>You liked this!</h6>
+    <% end %>
+<% end %>
+
