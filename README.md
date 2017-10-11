@@ -29,6 +29,7 @@ After following someone, their messages will appear in the "Messages" page.
 
 To Like:
 
+Log in first.
 In the message show page, click on like. After clicking like, a small card will appear saying that you liked the post. After liking a post, the user will see the "You liked this post!" message.
 
 To Deploy:
