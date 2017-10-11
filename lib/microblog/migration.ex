@@ -31,6 +31,7 @@ defmodule Microblog.ReleaseTasks do
     Enum.each(@repos, &(&1.start_link(pool_size: 1)))
 
     # Run migrations
+
     Enum.each(@myapps, &run_migrations_for/1)
 
     # Run the seed script if it exists

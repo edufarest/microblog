@@ -30,3 +30,7 @@ After following someone, their messages will appear in the "Messages" page.
 To Like:
 
 In the message show page, click on like. After clicking like, a small card will appear saying that you liked the post. After liking a post, the user will see the "You liked this post!" message.
+
+To Deploy:
+
+In the dev machine run deploy.sh. This will generate and copy a release to the server, which will then run deploy.sh in the server. This script will take care of unpacking and running the server
