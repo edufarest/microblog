@@ -52,11 +52,38 @@ let socket = new Socket("/socket", {params: {token: window.userToken}})
 // from connect if you don't care about authentication.
 
 socket.connect()
+	
+	// Based on phoenix documentation example
 
-// Now that you are connected, you can join channels with a topic:
-let channel = socket.channel("topic:subtopic", {})
+	// Now that you are connected, you can join channels with a topic:
+	let channel = socket.channel("updates:all", {})
+	let messageSubmit = document.querySelector("#submit-button")
+	let messageContent = document.querySelector("#message-content")
+	let messageContainer = document.querySelector("#messages")
+	let messagePoster    = document.querySelector("#poster")
+	//let liveText         = document.querySele
+
+	if (messageSubmit && messagePoster) {
+		messageSubmit.addEventListener("click", event => {
+			channel.push("new_msg", {body: messageContent.value, poster: messagePoster.value})
+			console.log(messagePoster.value)
+		})
+	}
+
+	if (messageContainer) {
+		channel.on("new_msg", payload => {
+			$("live").show();
+			console.log($("live"))
+			let messageItem = document.createElement("td");
+		
+			let message = payload.poster + ": " + payload.body;
+			messageItem.innerText = message
+			messageContainer.insertBefore(messageItem, messageContainer.childNodes[0])	
+		})
+	}
 channel.join()
-  .receive("ok", resp => { console.log("Joined successfully", resp) })
-  .receive("error", resp => { console.log("Unable to join", resp) })
+	.receive("ok", resp => { console.log("Joined successfully", resp) })
+	.receive("error", resp => { console.log("Unable to join", resp) })
 
-export default socket
+
+	export default socket

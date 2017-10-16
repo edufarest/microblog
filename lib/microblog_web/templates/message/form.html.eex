@@ -7,13 +7,13 @@
 
   <div class="form-group">
     <%= label f, :content, class: "control-label" %>
-    <%= textarea f, :content, class: "form-control" %>
+    <%= textarea f, :content, class: "form-control", id: "message-content" %>
     <%= error_tag f, :content %>
   </div>
 
-  <%= hidden_input f, :poster, value: @current_user.email %>
-
+  <%= hidden_input f, :poster, value: @current_user.email, id: "poster" %>
+  <input id="poster" name="poster" type="hidden" value
   <div class="form-group">
-    <%= submit "Submit", class: "btn btn-primary" %>
+    <%= submit "Submit", class: "btn btn-primary", id: "submit-button" %>
   </div>
 <% end %>

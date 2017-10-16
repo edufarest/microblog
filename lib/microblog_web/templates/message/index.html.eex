@@ -9,6 +9,14 @@
     </tr>
   </thead>
   <tbody>
+
+ <h3 id="live", hidden>LIVE: </h3> 
+    <tr id="messages">
+    <!--- Live messages go here -->
+
+    <!-- Have "Live:" be hidden and when posting, show -->
+    </tr>
+
 <%= for message <- @messages do %>
     <tr>
 
@@ -49,7 +57,6 @@
       <td><%= message.content %></td>
     
     <% end %>
-
 
     </tr>
 <% end %>
