@@ -16,4 +16,13 @@
   <div class="form-group">
     <%= submit "Submit", class: "btn btn-primary", id: "submit-button" %>
   </div>
+
+
+    <!-- Have to pass array as a string with no whitespaces, otherwise the array will be cut at the first space -->
+  <div
+       id="followers"
+       data-followers = 
+       <%= String.replace(Kernel.inspect(Microblog.Account.list_followers_id(@current_user.email)), ~r/ /, "")
+        %>>
+  </div>
 <% end %>

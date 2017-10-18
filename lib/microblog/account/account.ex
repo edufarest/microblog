@@ -137,6 +137,15 @@ defmodule Microblog.Account do
   """
   def get_follows!(id), do: Repo.get!(Follows, id)
 
+
+  #Helper method
+
+  def list_followers_id(user) do
+    followers_email = Enum.filter(list_following(), fn(x) -> x.followed_user == user end)
+    Enum.map(followers_email, fn(x) -> get_user_by_email!(x.user).id end)
+
+  end
+
   @doc """
   Creates a follows.
 

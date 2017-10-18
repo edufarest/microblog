@@ -1,19 +1,23 @@
 defmodule MicroblogWeb.UpdatesChannel do
   use MicroblogWeb, :channel
 
-  def join("updates:*", payload, socket) do
-    if authorized?(payload) do
-      {:ok, socket}
-    else
-      {:error, %{reason: "unauthorized"}}
-    end
-  end
+  #  def join("updates:*", payload, socket) do
+  # if authorized?(payload) do
+  #   {:ok, socket}
+  # else
+  #   {:error, %{reason: "unauthorized"}}
+  # end
+  #end
 
   def join("updates:all", _message, _socket) do
     {:ok, _socket}
   end
 
-  # TODO implement join/3 updates:user_id	
+  def join("updates:" <> _id, _message, _socket) do
+    {:ok, _socket}
+  end
+
+
 
   def handle_in("new_msg", %{"body" => body, "poster" => poster}, socket) do
     broadcast! socket, "new_msg", %{body: body, poster: poster}

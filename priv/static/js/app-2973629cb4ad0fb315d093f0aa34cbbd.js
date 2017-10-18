@@ -26810,7 +26810,7 @@ require.register("js/socket.js", function(exports, require, module) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+	value: true
 });
 
 var _phoenix = require("phoenix");
@@ -26871,19 +26871,7 @@ socket.connect();
 // Based on phoenix documentation example
 
 // Now that you are connected, you can join channels with a topic:
-var user = document.getElementById('info');
-
-var channel;
-
-if (user) {
-  var topic = "updates:" + user.dataset.id;
-  console.log(topic);
-  channel = socket.channel(topic, {});
-  console.log("Current user: " + user.dataset.id);
-} else {
-  channel = socket.channel("updates:all", {});
-}
-
+var channel = socket.channel("updates:all", {});
 var messageSubmit = document.querySelector("#submit-button");
 var messageContent = document.querySelector("#message-content");
 var messageContainer = document.querySelector("#messages");
@@ -26891,37 +26879,27 @@ var messagePoster = document.querySelector("#poster");
 //let liveText         = document.querySele
 
 if (messageSubmit && messagePoster) {
-  messageSubmit.addEventListener("click", function (event) {
-    //channel.push("new_msg", {body: messageContent.value, poster: messagePoster.value})
-
-    // Get Followers
-    var followersData = document.getElementById('followers');
-    console.log(followersData.dataset.followers);
-    var followers = JSON.parse(followersData.dataset.followers);
-
-    // Post in their channels
-
-    followers.forEach(function (id) {
-      var channelToPush = socket.channel("updates:" + id);
-      channelToPush.join();
-      channelToPush.push("new_msg", { body: messageContent.value, poster: messagePoster.value });
-    });
-  });
+	messageSubmit.addEventListener("click", function (event) {
+		channel.push("new_msg", { body: messageContent.value, poster: messagePoster.value });
+		console.log(messagePoster.value);
+	});
 }
 
 if (messageContainer) {
-  channel.on("new_msg", function (payload) {
-    var messageItem = document.createElement("td");
+	channel.on("new_msg", function (payload) {
+		$("live").show();
+		console.log($("live"));
+		var messageItem = document.createElement("td");
 
-    var message = payload.poster + ": " + payload.body;
-    messageItem.innerText = message;
-    messageContainer.insertBefore(messageItem, messageContainer.childNodes[0]);
-  });
+		var message = payload.poster + ": " + payload.body;
+		messageItem.innerText = message;
+		messageContainer.insertBefore(messageItem, messageContainer.childNodes[0]);
+	});
 }
 channel.join().receive("ok", function (resp) {
-  console.log("Joined successfully", resp);
+	console.log("Joined successfully", resp);
 }).receive("error", function (resp) {
-  console.log("Unable to join", resp);
+	console.log("Unable to join", resp);
 });
 
 exports.default = socket;
@@ -26950,4 +26928,4 @@ window.bootstrap = require("bootstrap");
 });})();require('___globals___');
 
 require('js/app');
-//# sourceMappingURL=app.js.map
+//# sourceMappingURL=./app.js-ccbc8638d55d010d4fa14a8fa39ea69f.map

@@ -1,5 +1,17 @@
 <h2>Listing Messages</h2>
 
+
+<!-- data for live messages -->
+
+<%= if @current_user do %>
+ 
+<div
+  id="info"
+  data-email = <%= @current_user.email %>
+  data-id    = <%= @current_user.id    %>>
+</div>
+<% end %>
+
 <table class="table">
   <thead>
     <tr>

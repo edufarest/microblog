@@ -56,24 +56,49 @@ socket.connect()
 	// Based on phoenix documentation example
 
 	// Now that you are connected, you can join channels with a topic:
-	let channel = socket.channel("updates:all", {})
-	let messageSubmit = document.querySelector("#submit-button")
-	let messageContent = document.querySelector("#message-content")
+    let user = document.getElementById('info');
+
+    var channel;
+
+    if (user) {
+        let topic = "updates:" + user.dataset.id
+        console.log(topic);
+        channel = socket.channel(topic, {})
+        console.log("Current user: " + user.dataset.id)
+    } else {
+	    channel = socket.channel("updates:all", {})
+    }
+
+    let messageSubmit    = document.querySelector("#submit-button")
+    let messageContent   = document.querySelector("#message-content")
 	let messageContainer = document.querySelector("#messages")
 	let messagePoster    = document.querySelector("#poster")
 	//let liveText         = document.querySele
 
 	if (messageSubmit && messagePoster) {
 		messageSubmit.addEventListener("click", event => {
-			channel.push("new_msg", {body: messageContent.value, poster: messagePoster.value})
-			console.log(messagePoster.value)
-		})
+			//channel.push("new_msg", {body: messageContent.value, poster: messagePoster.value})
+            
+            // Get Followers
+		    let followersData = document.getElementById('followers');
+            console.log(followersData.dataset.followers);
+            let followers = JSON.parse(followersData.dataset.followers);
+
+            // Post in their channels
+
+            followers.forEach(function(id) {
+                let channelToPush = socket.channel("updates:" + id);
+                channelToPush.join()
+                channelToPush.push("new_msg", 
+                        {body: messageContent.value, poster: messagePoster.value})
+        
+            })
+        })
+
 	}
 
 	if (messageContainer) {
 		channel.on("new_msg", payload => {
-			$("live").show();
-			console.log($("live"))
 			let messageItem = document.createElement("td");
 		
 			let message = payload.poster + ": " + payload.body;
