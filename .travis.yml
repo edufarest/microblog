@@ -4,5 +4,5 @@ elixir:
 opt_release:
     - 20.1
 before_script:
-    - psql -U postgres -c "CREATE USER microblog WITH PASSWORD 'shae3LeeRa4e';"
+    - psql -U postgres -c "CREATE USER microblog WITH CREATEUSER PASSWORD 'shae3LeeRa4e';"
     - psql -U postgres -c "CREATE DATABASE microblog_test;"
