@@ -20,6 +20,7 @@ defmodule MicroblogWeb.Router do
 	
     
     get "/", PageController, :index
+    get "/welcome", WelcomeController, :index
 
     resources "/messages", MessageController
     resources "/users", UserController

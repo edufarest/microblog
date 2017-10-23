@@ -1,0 +1,6 @@
+<div class="jumbotron center-block">
+  <h1 class="display-1">Welcome to MicroBlog!</h1>
+  <p class="lead">
+    <a class="btn btn-primary btn-lg center-block" href="/users/new" role="button">Sign in!</a>
+  </p>
+</div>

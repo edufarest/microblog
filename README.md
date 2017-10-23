@@ -35,3 +35,13 @@ In the message show page, click on like. After clicking like, a small card will 
 To Deploy:
 
 In the dev machine run deploy.sh. This will generate and copy a release to the server, which will then run deploy.sh in the server. This script will take care of unpacking and running the server
+
+HW07 UPDATES:
+
+ - Password: Users now require a +7 password to register and log in
+
+ - Welcome Screen: If there is no user logged in, the user will be greeted with the welcome screen which will prompt them to register or log in. The user will still be able to look at messages and users, but will not be able to interact with them in any way. If there is already an user logged in, they will be redirected to their feed.
+
+ - HTTPS: The microblog now uses HTTPS.
+
+

@@ -12,7 +12,6 @@
   </div>
 
   <%= hidden_input f, :poster, value: @current_user.email, id: "poster" %>
-  <input id="poster" name="poster" type="hidden" value
   <div class="form-group">
     <%= submit "Submit", class: "btn btn-primary", id: "submit-button" %>
   </div>

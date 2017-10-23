@@ -5,7 +5,7 @@ defmodule MicroblogWeb.MessageController do
   alias Microblog.Blog.Message
 
   def index(conn, _params) do
-    messages = Blog.list_messages()
+    messages = Enum.reverse(Blog.list_messages())
     follows = Microblog.Account.list_following()
     render(conn, "index.html", messages: messages, follows: follows)
   end
@@ -20,9 +20,10 @@ defmodule MicroblogWeb.MessageController do
       {:ok, message} ->
         conn
         |> put_flash(:info, "Message created successfully.")
-        |> redirect(to: message_path(conn, :show, message))
+        #|> redirect(to: message_path(conn, :index, message))
+        index(conn, nil)
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        render(conn, "show.html", changeset: changeset)
     end
   end
 

@@ -12,6 +12,19 @@
 </div>
 <% end %>
 
+<!-- Post messages -->
+<%= if @current_user do %>
+  <div class="col col-lg-9">
+  <%=form_for @conn, message_path(@conn, :create), [as: "message", class: "form-inline"], fn f -> %>
+    <%= text_input f, :content, placeholder: "Type your message here...", class: "form-control" %>
+    <%= hidden_input f, :poster, value: @current_user.email, id: "poster" %>
+    <%= submit "Post", class: "btn btn-primary" %>
+  <% end %>
+  </div>
+<% end %>
+
+
+
 <table class="table">
   <thead>
     <tr>
@@ -21,13 +34,6 @@
     </tr>
   </thead>
   <tbody>
-
- <h3 id="live", hidden>LIVE: </h3> 
-    <tr id="messages">
-    <!--- Live messages go here -->
-
-    <!-- Have "Live:" be hidden and when posting, show -->
-    </tr>
 
 <%= for message <- @messages do %>
     <tr>
@@ -75,4 +81,3 @@
   </tbody>
 </table>
 
-<span><%= link "New Message", to: message_path(@conn, :new) %></span>
