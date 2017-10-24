@@ -21,7 +21,7 @@
   <div
        id="followers"
        data-followers = 
-       <%= String.replace(Kernel.inspect(Microblog.Account.list_followers_id(@current_user.email)), ~r/ /, "")
-        %>>
+       <%= String.replace(inspect(Microblog.Account.list_followers_id(@current_user.email), charlists: :as_lists), ~r/ /, "")
+       %>>
   </div>
 <% end %>

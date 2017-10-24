@@ -17,6 +17,7 @@
 
 <span><%= link "Back", to: user_path(@conn, :index) %></span>
 
+<%= if @current_user do %>
 <%= form_for @following, follows_path(@conn, :create), fn f -> %>
   <%= if @following.action do %>
     <div class="alert alert-danger">
@@ -32,4 +33,19 @@
     <%= submit "Follow", class: "btn btn-primary" %>
   </div>
 <% end %>
+<% end %>
 
+<table class="table">
+  <thead>
+    <tr>
+      <th>Content</th>
+    </tr>
+    <tbody>
+  
+      <%= for message <- Microblog.Blog.list_messages_by(@user.email) do %>
+      <tr>
+        <td class="text-left"><%= message %></td>
+      </tr>
+      <% end %>
+    </tbody>
+ </table>

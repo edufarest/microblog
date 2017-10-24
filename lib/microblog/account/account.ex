@@ -50,7 +50,7 @@ defmodule Microblog.Account do
 
   """
   def create_user(attrs \\ %{}) do
-    %User{}
+    %User{is_admin?: false}
     |> User.changeset(attrs)
     |> Repo.insert()
   end
@@ -71,6 +71,13 @@ defmodule Microblog.Account do
     user
     |> User.changeset(attrs)
     |> Repo.update()
+  end
+
+  def make_admin(id) do
+    user = get_user!(id)
+    
+    update_user(user, %{is_admin?: true})    
+
   end
 
   @doc """
@@ -142,8 +149,7 @@ defmodule Microblog.Account do
 
   def list_followers_id(user) do
     followers_email = Enum.filter(list_following(), fn(x) -> x.followed_user == user end)
-    Enum.map(followers_email, fn(x) -> get_user_by_email!(x.user).id end)
-
+    followers =  Enum.map(followers_email, fn(x) -> get_user_by_email!(x.user).id end)
   end
 
   @doc """

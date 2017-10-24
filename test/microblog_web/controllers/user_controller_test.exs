@@ -31,9 +31,9 @@ defmodule MicroblogWeb.UserControllerTest do
       conn = post conn, user_path(conn, :create), user: @create_attrs
 
       assert %{id: id} = redirected_params(conn)
-      assert redirected_to(conn) == user_path(conn, :show, id)
+      assert redirected_to(conn) == message_path(conn, :index, id)
 
-      conn = get conn, user_path(conn, :show, id)
+      conn = get conn, message_path(conn, :index, id)
       assert html_response(conn, 200) =~ "Show User"
     end
 

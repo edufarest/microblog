@@ -14,13 +14,23 @@
 
 <!-- Post messages -->
 <%= if @current_user do %>
-  <div class="col col-lg-9">
+  <div class="form-group">
   <%=form_for @conn, message_path(@conn, :create), [as: "message", class: "form-inline"], fn f -> %>
-    <%= text_input f, :content, placeholder: "Type your message here...", class: "form-control" %>
+      <%= text_input f, :content, placeholder: "Type your message here...", class: "form-control", id: "message-content" %>
     <%= hidden_input f, :poster, value: @current_user.email, id: "poster" %>
-    <%= submit "Post", class: "btn btn-primary" %>
+      <%= submit "Post", class: "btn btn-primary", id: "submit-button" %>
   <% end %>
   </div>
+<% end %>
+
+<!-- Store array of followers for live messages -->
+<%= if @current_user do %>
+   <div
+       id="followers"
+       data-followers = 
+       <%= String.replace(inspect(Microblog.Account.list_followers_id(@current_user.email), charlists: :as_lists), ~r/ /, "") 
+       %>>
+   </div>
 <% end %>
 
 
@@ -35,13 +45,17 @@
   </thead>
   <tbody>
 
+    <tr id="messages">
+      <!--- Live messages go here -->
+    </tr>
+
 <%= for message <- @messages do %>
     <tr>
 
 
     <%= if @current_user do %>
 
-         <%= if message.poster == @current_user.email do %>
+      <%= if message.poster == @current_user.email do %>
             <td><%= message.poster  %></td>
             <td><%= message.content %></td>
 
@@ -63,7 +77,10 @@
 
       <td class="text-right">
         <span><%= link "Show", to: message_path(@conn, :show, message), class: "btn btn-default btn-xs" %></span>  
-       
+        <%= if @current_user.is_admin? do %>
+         <span><%= link "Edit", to: message_path(@conn, :edit, message), class: "btn btn-default btn-xs" %></span>
+         <span><%= link "Delete", to: message_path(@conn, :delete, message), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+        <% end %>
 
         
       </td>

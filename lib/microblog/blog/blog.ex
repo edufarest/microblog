@@ -21,6 +21,11 @@ defmodule Microblog.Blog do
     Repo.all(Message)
   end
 
+  def list_messages_by(email) do
+    messages = list_messages()
+    Enum.map(Enum.filter(messages, fn(x) -> x.poster == email end), fn(x) -> x.content end)
+  end
+
   @doc """
   Gets a single message.
 
